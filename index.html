@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigerian Weight Loss Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="screen active" id="welcome-screen">
+        <div class="container">
+            <div class="content">
+                <h1>Discover the Secret to Losing Weight Without Starving Yourself</h1>
+                <p>Take this quick quiz to find out if you qualify for our proven Nigerian weight loss method</p>
+                <div class="image-container">
+                    <img src="images/hero-sad-woman.jpg" alt="Nigerian woman" class="hero-image">
+                </div>
+                <button class="btn-primary" onclick="startQuiz()">Start Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div class="screen" id="quiz-screen">
+        <div class="container">
+            <div class="content">
+                <h2 id="question-text"></h2>
+                <div id="question-subtitle" class="question-subtitle"></div>
+                <div id="special-content" class="special-content"></div>
+                <div id="options-container" class="options-container"></div>
+                <button id="continue-btn" class="btn-primary" onclick="nextQuestion()" style="display: none;">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weight Input Screen -->
+    <div class="screen" id="weight-screen">
+        <div class="container">
+            <div class="content">
+                <h2>Wetin be your current weight and how much you wan lose?</h2>
+                
+                <div class="weight-selector">
+                    <div class="unit-selector">
+                        <button class="unit-btn active" data-unit="kg">kg</button>
+                        <button class="unit-btn" data-unit="lb">lb</button>
+                    </div>
+                    
+                    <div class="weight-display">
+                        <span id="weight-value">70</span><span id="weight-unit">kg</span>
+                    </div>
+                    
+                    <div class="weight-slider-container">
+                        <span class="weight-label">60</span>
+                        <input type="range" id="weight-slider" min="40" max="150" value="70" class="weight-slider">
+                        <span class="weight-label">80</span>
+                    </div>
+                    
+                    <p class="weight-instruction">Drag to adjust</p>
+                </div>
+                
+                <div class="weight-options">
+                    <div class="weight-option">
+                        <span>I need to lose up to 5 kg</span>
+                    </div>
+                    <div class="weight-option">
+                        <span>I need to lose 6 to 10 kg</span>
+                    </div>
+                    <div class="weight-option">
+                        <span>I need to lose 11 to 20 kg</span>
+                    </div>
+                </div>
+                
+                <p class="weight-note">Based on this, we go adjust the ideal dose so you go get the best results.</p>
+                
+                <button id="weight-continue-btn" class="btn-primary" onclick="continueFromWeight()" style="display: none;">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="screen" id="loading-screen">
+        <div class="container">
+            <div class="content">
+                <h2>+100 thousand Women</h2>
+                <p>More than 100 thousand women don already lose weight with the Poor Man's Mounjaro.</p>
+                
+                <div class="loading-progress-container">
+                    <div class="loading-progress" id="loading-progress"></div>
+                </div>
+                
+                <div class="loading-text" id="loading-text">Analyzing your metabolic profile...</div>
+                
+                <div class="before-after-carousel">
+                    <div class="before-after-slide active">
+                        <img src="images/before-after-1.jpg" alt="Before and after transformation">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compatibility Screen (Page 19) -->
+    <div class="screen" id="compatibility-screen">
+        <div class="container">
+            <div class="content">
+                <h2>So far, according to your answers, the Poor Man's Mounjaro get <span class="highlight-green">89% compatibility</span> with you.</h2>
+                
+                <div class="compatibility-section">
+                    <h3 class="diagram-title">HOW THE POOR MAN'S MOUNJARO DEY WORK</h3>
+                    
+                    <div class="mounjaro-diagram">
+                        <div class="diagram-center">
+                            <div class="person-icon">👤</div>
+                            <span class="diagram-label">You</span>
+                        </div>
+                        
+                        <div class="diagram-flow">
+                            <div class="diagram-item">
+                                <div class="diagram-icon">🎯</div>
+                                <span class="diagram-text">Your goal</span>
+                            </div>
+                            
+                            <div class="diagram-arrow">→</div>
+                            
+                            <div class="diagram-item">
+                                <div class="diagram-icon">🔥</div>
+                                <span class="diagram-text">Mounjaro activate fat burning</span>
+                            </div>
+                            
+                            <div class="diagram-arrow">→</div>
+                            
+                            <div class="diagram-item">
+                                <div class="diagram-icon">☕</div>
+                                <span class="diagram-text">Mounjaro Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="compatibility-text">You get the ideal profile for the <strong>Poor Man's Mounjaro metabolic protocol</strong>.</p>
+                    <p class="compatibility-text">Now we go finalize your evaluation to guarantee even more effective and personalized result.</p>
+                </div>
+                
+                <button class="btn-primary" onclick="showCommitmentScreen()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commitment Screen (Page 20) -->
+    <div class="screen" id="commitment-screen">
+        <div class="container">
+            <div class="content">
+                <h2>You ready to follow a <span class="highlight-green">simple protocol</span> for 4 weeks to transform your body?</h2>
+                
+                <div class="commitment-options">
+                    <div class="commitment-option" onclick="selectCommitment(this)">
+                        <span class="commitment-arrow">></span>
+                        <span>Yes, I totally committed</span>
+                    </div>
+                    
+                    <div class="commitment-option" onclick="selectCommitment(this)">
+                        <span class="commitment-arrow">></span>
+                        <span>Yes, but I dey fear say I no go achieve am</span>
+                    </div>
+                    
+                    <div class="commitment-option" onclick="selectCommitment(this)">
+                        <span class="commitment-arrow">></span>
+                        <span>Maybe, e depend on wetin e need</span>
+                    </div>
+                </div>
+                
+                <button id="commitment-continue-btn" class="btn-primary" onclick="continueFromCommitment()" style="display: none;">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="screen" id="results-screen">
+        <div class="container">
+            <div class="content">
+                <h2>Here na the analysis of your profile:</h2>
+                
+                <div class="bmi-analysis">
+                    <h3>Your BMI (Body Mass Index) be:</h3>
+                    <div class="bmi-scale">
+                        <div class="bmi-indicator" style="left: 65%;">18</div>
+                        <div class="bmi-labels">
+                            <span>Low Weight</span>
+                            <span>Normal</span>
+                            <span>Overweight</span>
+                            <span>Obesity</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weight-categories">
+                    <div class="weight-category green">
+                        <div class="category-icon">🟢</div>
+                        <div class="category-info">
+                            <h4>Low weight</h4>
+                            <p>Less than 18.5</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weight-category yellow">
+                        <div class="category-icon">🟡</div>
+                        <div class="category-info">
+                            <h4>Ideal Weight</h4>
+                            <p>Between 18.5 and 24.99</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weight-category orange">
+                        <div class="category-icon">🟠</div>
+                        <div class="category-info">
+                            <h4>Overweight</h4>
+                            <p>Between 25 and 29.99</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weight-category red">
+                        <div class="category-icon">🔴</div>
+                        <div class="category-info">
+                            <h4>Obesity</h4>
+                            <p>From 30.0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert-section">
+                    <h3>⚠️ Your metabolism fit dey sabotage you without you knowing!</h3>
+                    
+                    <div class="alert-items">
+                        <div class="alert-item">❌ Slow metabolism for weight loss, even when you dey eat small.</div>
+                        <div class="alert-item">❌ Constant tiredness and feeling of bloating.</div>
+                        <div class="alert-item">❌ Fat accumulation for specific body areas, especially for belly.</div>
+                    </div>
+                    
+                    <div class="solution-section">
+                        <h4>✅ With the Poor Man's Mounjaro, your body go accelerate fat burning naturally.</h4>
+                        <p>The ideal combination of ingredients fit activate your metabolism, reduce water retention and stimulate fat burning with less energy.</p>
+                    </div>
+                </div>
+                
+                <div class="transformation-section">
+                    <h3>Look the transformation of Silvia!</h3>
+                    <p>This na how you go feel in 4 weeks.</p>
+                    
+                    <div class="transformation-images">
+                        <div class="transformation-image">
+                            <img src="images/before-after-1.jpg" alt="Before transformation">
+                        </div>
+                        <div class="transformation-image">
+                            <img src="images/before-after-2.jpg" alt="After transformation">
+                        </div>
+                    </div>
+                    
+                    <p class="transformation-note">According to your answers, we get 84% certainty say you fit lose 5 to 12 kg in just 4 weeks with the Poor Man's Mounjaro.</p>
+                </div>
+                
+                <div class="effectiveness-section">
+                    <h3>Success Level for the Poor Man's Mounjaro</h3>
+                    <p>Based on data from Poor Man's Mounjaro customers wey register their progress for the app</p>
+                    <div class="effectiveness-percentage">84%</div>
+                </div>
+                
+                <button class="btn-primary" onclick="showFinalLoading()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Loading Screen -->
+    <div class="screen" id="final-loading-screen">
+        <div class="container">
+            <div class="content">
+                <h2>Analyzing your data and finalizing your plan</h2>
+                
+                <div class="loading-progress-container">
+                    <div class="loading-progress" id="final-loading-progress"></div>
+                    <div class="loading-percentage">44%</div>
+                </div>
+                
+                <div class="loading-text" id="final-loading-text">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Page -->
+    <div class="screen" id="sales-page">
+        <div class="container">
+            <div class="content">
+                <div class="sales-header">
+                    <h1>Your Exclusive Weight Loss Plan with the Poor Man's Mounjaro don ready.</h1>
+                </div>
+                
+                <div class="before-after-comparison">
+                    <div class="comparison-title">
+                        <span class="before-label">Before Poor Man's Mounjaro</span>
+                        <span class="after-label">After Poor Man's Mounjaro</span>
+                    </div>
+                    
+                    <div class="comparison-images">
+                        <div class="before-image">
+                            <img src="images/before-after-1.jpg" alt="Before">
+                        </div>
+                        <div class="arrow">»</div>
+                        <div class="after-image">
+                            <img src="images/before-after-2.jpg" alt="After">
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-stats">
+                        <div class="before-stats">
+                            <div class="stat-item red">Slow metabolism - 50%</div>
+                            <div class="stat-item red">Constant tiredness - 85%</div>
+                            <div class="stat-item red">Anxiety for sweets and food - 75%</div>
+                            <div class="stat-item red">Hormonal imbalance - 65%</div>
+                        </div>
+                        
+                        <div class="after-stats">
+                            <div class="stat-item green">Accelerated metabolism - 90%</div>
+                            <div class="stat-item green">Abundant energy - 95%</div>
+                            <div class="stat-item green">Feeling of satiety and self-control - 85%</div>
+                            <div class="stat-item green">Natural hormonal balance - 78%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="personalized-plan">
+                    <h2>Your Personalized Plan don ready!</h2>
+                    
+                    <div class="discount-timer">
+                        <span class="discount-text">🎁 Discount activated for the next:</span>
+                        <div class="timer">10:00</div>
+                    </div>
+                    
+                    <div class="offer-box">
+                        <h3>EVERYTHING WEY YOU GO RECEIVE TODAY:</h3>
+                        
+                        <div class="offer-items">
+                            <div class="offer-item">
+                                <span class="checkmark">✅</span>
+                                <div class="item-details">
+                                    <h4>Complete Mounjaro Poor Pipo</h4>
+                                    <p>Scientific protocol to apply correctly and get real results.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="offer-item">
+                                <span class="checkmark">✅</span>
+                                <div class="item-details">
+                                    <h4>7-Day Naija Detox Program (FREE Bonus)</h4>
+                                    <p>You go get our 7-day full body reset using only local ingredients. This one go clean your belly, boost energy and clear toxins — no imported wahala!</p>
+                                </div>
+                            </div>
+                            
+                            <div class="offer-item">
+                                <span class="checkmark">✅</span>
+                                <div class="item-details">
+                                    <h4>Personalized Support Throughout the Process</h4>
+                                    <p>We no go just sell give you and disappear. Our team go check on you, guide you well, and make sure you dey do am correct to get real results.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="offer-item">
+                                <span class="checkmark">✅</span>
+                                <div class="item-details">
+                                    <h4> One-Time Payment – No Monthly Wahala</h4>
+                                    <p>Pay once, get everything. No hidden charge, no subscription, no surprise later. Pure honesty.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-section">
+                            <div class="bonus-badge">🧡 You dey collect the 4 BONUSES above TODAY — no delay!</div>
+                        </div>
+                        
+                        <div class="pricing">
+                            <div class="original-price">Total price: ₦27997</div>
+                            <div class="final-price">
+                                <span class="currency">💰</span>
+                                <span class="price">For Only:</span>
+                                <span class="amount">$4997</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-purchase" onclick="finalStep()">
+                            I WANT TRANSFORM MY BODY NOW
+                        </button>
+                        
+                        <div class="guarantee">
+                            <p>✅ 30-day guarantee or your money back</p>
+                            <p>🔒 100% safe and protected purchase</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div class="screen" id="success-screen">
+        <div class="container">
+            <div class="content">
+                <h1>Congratulations! 🎉</h1>
+                <p>You don qualify for our special Nigerian weight loss program!</p>
+                <div class="image-container">
+                    <img src="images/group-women-hugging.jpg" alt="Nigerian women group" class="success-image">
+                </div>
+                <p>Based on your answers, we don create personalized plan just for you. You go see results in just 2 weeks!</p>
+                <button class="btn-primary" onclick="finalStep()">Get My Personalized Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="notification-popup" class="notification-popup">
+        <!-- Content will be dynamically inserted -->
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function selectCommitment(element) {
+            document.querySelectorAll('.commitment-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('commitment-continue-btn').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
