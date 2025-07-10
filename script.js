@@ -161,10 +161,10 @@ const quizData = [
         question: "How much you dey spend monthly for your health and wellness?",
         subtitle: "Include supplements, gym, aesthetic treatments.",
         options: [
-            "Less than $100",
-            "From $100 to $300",
-            "From $300 to $500",
-            "More than $500"
+            "Less than ₦153,000",
+            "From ₦153,000 to ₦460,000",
+            "From ₦460,000 to ₦767,000",
+            "More than ₦767,000"
         ],
         type: "single",
         autoAdvance: true
